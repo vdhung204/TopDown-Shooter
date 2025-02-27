@@ -12,19 +12,28 @@ public class BulletController : MoveBase
 
     private void Start()
     {
-        damage = PlayerController.instance.damage;
         lifeTime = TIMELIFE;
     }
 
     private void Update()
     {
         MoveTo(direction);
+        SetDamage();
         lifeTime -= Time.deltaTime;
         if (lifeTime <= 0)
         {
             DestroyMe();
             lifeTime = TIMELIFE;
         }
+    }
+    void SetDamage()
+    {
+        if(PlayerController.instance == null)
+        {
+            return;
+        }
+        damage = PlayerController.instance.damage;
+        
     }
     public void SetDirection(Vector3 dir)
     {

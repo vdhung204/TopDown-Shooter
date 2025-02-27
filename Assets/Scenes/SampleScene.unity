@@ -180,7 +180,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 9a0e512b8e78e4c13b559bc480376751, type: 3}
   m_Color: {r: 0.4631369, g: 0.39342827, b: 0.6150943, a: 1}
   m_FlipX: 0
@@ -263,8 +263,8 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.35
-  m_DeadZoneHeight: 0.35
+  m_DeadZoneWidth: 0.27
+  m_DeadZoneHeight: 0.26
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
@@ -295,6 +295,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &210371309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210371311}
+  - component: {fileID: 210371312}
+  m_Layer: 0
+  m_Name: A*
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &210371311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210371309}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1920202520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &210371312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210371309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAA4Iex5p5lgWAIAABAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HZJxQemuBkB5ImNBOLr4Ia401yJJHHwGS4b93V7axQ6cnxHtvd9+uVv5gUrsacm/s0kqxMgLY9xGjM/sy6slHOPKd0Rv5Dp3mVQpfkohHzQv30iA+pjBnKvBW5j/0TpE4QTBoWRhbLcQOZsZ5h3DBlQOkrPEUrRH6GLEj/txMKeSEp9sJnd7xNE1GZzzmoD3YXtoJO1mjCjpXvKpBkOVenHbqtJFpbKZVkPHcKCVd64T5Ux073dQlWKBWheTYWKxO8hLkrvRkchj7XBQOfOvI8tNcWpxPk5T9NM3QKu72ja03rgKVuU+joybn6h/6ZhzpwprqsSs7TqiEL2W+f+GnnDs/GOoQnn/2HfSBqz3fKngtQT+ZpTVBCyS9DRQaHNzO+7+XzmYl5Pseb6xegaH+/9VQD+fY/HGmZLUl6mvaABtl4rTjxYPFe/mFhuNauDYFouTij4PffDfcn5Z4kNZ5pNouNdnbmmBJyhZxZtRN8DNjNUS4NV2D5sqf1pjGX9/gFTcoe8U8cHopbfGW6x7AVUiEe32SXFFrc7hclivNYQWufA5eSQ29aSKecE4zo3WzYMOZdGGbYAueD8J2QYrPq8WS8Xh8B0kyuUvTW8GnN/fTbZJO0mn+bTJJptsti7snNfbJ1box2o4Hb033yTXuWfcBGS0tr+OyC8sPS/lemcHIpS7MJrcA+rnJcDEOFovgmxQLIXFAG/Be6njf7CNjyuR7ENklURY7XRy95VmfJWO1fDOekIzN4hcjYwRfdnlt4U3CgYp3yc7s/BdQSwMEFAAACAgAADgh7F/KXS9tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJKBoaGhaaqBgbmpiYlRSqKlrpllkoGJuYllsoW5uYFlUpJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAADgh7HmnmWBYAgAAEAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADgh7F/KXS9tAAAAeAAAAAkAJAAAAAAAAAAAAAAApQIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABdAwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419197965}
   - component: {fileID: 1419197964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,6 +827,10 @@ PrefabInstance:
       value: player_1
       objectReference: {fileID: 0}
     - target: {fileID: 4548377793937272180, guid: bf731e3ffdb18ec479e8db42bb23684b, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4548377793937272180, guid: bf731e3ffdb18ec479e8db42bb23684b, type: 3}
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 83026848}
@@ -759,7 +850,7 @@ GameObject:
   - component: {fileID: 1882097830}
   - component: {fileID: 1882097832}
   - component: {fileID: 1882097831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1309,7 +1400,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 210371311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1920202521
@@ -1327,7 +1419,6 @@ MonoBehaviour:
   enemies:
   - {fileID: 1231373538858848190, guid: b437b30bd061fab49ba0c234165f88bc, type: 3}
   - {fileID: 902452859616736762, guid: adf535eb9a9753d4589e418010dfac05, type: 3}
-  - {fileID: 3364472681752836843, guid: a952962f7c619ff4398e6ca2dd155211, type: 3}
   - {fileID: 6595805718281360349, guid: e25c4d86b8abafc46b541f1b59c5d6b8, type: 3}
   enemiesPos: []
 --- !u!1660057539 &9223372036854775807

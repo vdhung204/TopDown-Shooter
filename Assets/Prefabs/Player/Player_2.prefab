@@ -116,6 +116,7 @@ MonoBehaviour:
   popUpTextPrefab: {fileID: 3735327453787569117, guid: 6051031ef72f7d744873fd0bac24a917, type: 3}
   popUpText: {fileID: 1838252043742942219, guid: 6051031ef72f7d744873fd0bac24a917, type: 3}
   anim: {fileID: 2650514896196988976}
+  spriteRenderer: {fileID: 0}
 --- !u!1 &3877250652228314085
 GameObject:
   m_ObjectHideFlags: 0
