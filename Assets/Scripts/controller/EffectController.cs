@@ -16,7 +16,7 @@ public class EffectController : MonoBehaviour
         time -= Time.deltaTime;
         if (time <= 0)
         {
-            SmartPool.Instance.Despawn(gameObject);
+            Destroy(gameObject);
             time = TIMELIFE;
         }
     }

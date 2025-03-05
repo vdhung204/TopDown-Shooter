@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerController : Figure
 {
     public Animator anim;
     public SpriteRenderer spriteRenderer;
+    public Data_Infor data_Infor;
     public static PlayerController instance { private set; get; }
 
     private void Awake()
     {
         instance = this;
+        data_Infor = Resources.Load<Data_Infor>("");
     }
     void Update()
     {
         MovePlayer();
+    }
+    void InitInforPlayer(int level)
+    {
+        var temp = data_Infor.GetInforObjectByLevel(level);
+        SetDataPlayer(temp);
     }
     public Vector3 GetSizeBg()
     {
@@ -67,6 +75,12 @@ public class PlayerController : Figure
         }
 
         anim.SetFloat("Move", Mathf.Abs(direction.magnitude));
+    }
+    private void SetDataPlayer(Data_object dO)
+    {
+        this.damage = dO.damage;
+        this.hp = dO.hp;
+        this.speed = dO.speed;
     }
 
 }

@@ -12,13 +12,23 @@ public class EnemyController : Figure
     Path path;
     public Transform target;
     Coroutine moveCoroutine;
+    public Data_Infor data_Infor;
 
+    private void Awake()
+    {
+        data_Infor = Resources.Load<Data_Infor>("");
+    }
     private void Start()
     {
         GetPlayerPosition();
         InvokeRepeating("CalculatePath", 0f, repeatTimeUpdatePath);
     }
 
+    void InitInforEnemy(int level)
+    {
+        var temp = data_Infor.GetInforObjectByLevel(level);
+        SetInforEnemy(temp);
+    }
     void GetPlayerPosition()
     {
         target = PlayerController.instance.transform;
@@ -86,5 +96,11 @@ public class EnemyController : Figure
 
             yield return null;
         }
+    }
+    void SetInforEnemy(Data_object data_Object)
+    {
+        hp = data_Object.hp;
+        damage = data_Object.damage;
+        speed = data_Object.speed;
     }
 }

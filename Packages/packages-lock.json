@@ -226,6 +226,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.zitga.zbase.csv-reader": {
+      "version": "file:ZBase.CsvReader",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

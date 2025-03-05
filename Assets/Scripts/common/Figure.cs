@@ -10,10 +10,11 @@ public class Figure : MoveBase
     public float damage;
     public GameObject popUpTextPrefab;
     public TMP_Text popUpText;
+    public Transform efTakeDamage;
     public virtual void TakeDamage(float damage)
     {
         popUpText.text = damage.ToString();
-        SmartPool.Instance.Spawn(popUpTextPrefab.gameObject, transform.position, Quaternion.identity);
+        Instantiate(popUpTextPrefab.gameObject, efTakeDamage.position, Quaternion.identity);
         hp -= damage;
     }
 }
