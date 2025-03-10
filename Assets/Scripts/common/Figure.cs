@@ -17,4 +17,8 @@ public class Figure : MoveBase
         Instantiate(popUpTextPrefab.gameObject, efTakeDamage.position, Quaternion.identity);
         hp -= damage;
     }
+    public virtual void ObjectDie()
+    {
+        SmartPool.Instance.Despawn(gameObject);
+    }
 }

@@ -1,23 +1,59 @@
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class Data_Infor : ScriptableObject
+
+public sealed class Data_Infor : SerializedScriptableObject
 {
+    [NonSerialized, OdinSerialize]
+    public Dictionary<int, Data_object> LevelEnemyMap = new Dictionary<int, Data_object>();
+    [NonSerialized, OdinSerialize]
+    public Dictionary<int, Data_object> LevelPlayerMap = new Dictionary<int, Data_object>();
 
-    public Data_object[] levelEnemy;
+    private Data_object[] levelEnemy;
+    private Data_object[] levelPlayer;
 
-    public Data_object GetInforObjectByLevel(int level)
+    public void ConvertDataLevelEnemy()
     {
-        if (level >= levelEnemy.Length) return levelEnemy[0];
+        LevelEnemyMap = new Dictionary<int, Data_object>();
 
-        foreach (var lvl in levelEnemy)
+        foreach (var entry in levelEnemy)
         {
-            if (lvl.level == level) return lvl;
+            LevelEnemyMap.Add(entry.level, entry);
         }
-        return levelEnemy[0];
+    }
+
+    public void ConvertDataLevelPlayer()
+    {
+        LevelPlayerMap = new Dictionary<int, Data_object>();
+
+        foreach (var entry in levelPlayer)
+        {
+            LevelPlayerMap.Add(entry.level, entry);
+        }
+    }
+
+    public Data_object GetInforEnemiesByLevel(int level)
+    {
+        if (LevelEnemyMap.TryGetValue(level, out var dataCsv))
+        {
+            return dataCsv;
+        }
+
+        return LevelEnemyMap[0];
+    }
+    public Data_object GetInforPlayerByLevel(int level)
+    {
+        if (LevelPlayerMap.TryGetValue(level, out var dataCsv))
+        {
+            return dataCsv;
+        }
+
+        return LevelPlayerMap[0];
+
     }
 }
 [Serializable]

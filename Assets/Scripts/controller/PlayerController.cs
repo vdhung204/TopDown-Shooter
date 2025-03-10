@@ -8,21 +8,40 @@ public class PlayerController : Figure
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public Data_Infor data_Infor;
+    public levelUpConfig levelUpConfig;
+    private int countEnemies;
+    private int countEnemiesIsKill;
+    private int currentEXP = 0;
+    public int expNeed;
+    private int level;
     public static PlayerController instance { private set; get; }
 
     private void Awake()
     {
         instance = this;
-        data_Infor = Resources.Load<Data_Infor>("");
+        data_Infor = Resources.Load<Data_Infor>("CSV_Data/Data_Infor");
+        levelUpConfig = Resources.Load<levelUpConfig>("CSV_Data/levelUpConfig");
+    }
+    private void Start()
+    {
+        this.RegisterListener(EventID.CountEnemy, (sender, param) => SetCountEnemies((int)param));
+        this.RegisterListener(EventID.EnemyDie, (sender, param) => PlayerUpScore((int)param));
+        level = 1;
     }
     void Update()
     {
         MovePlayer();
     }
-    void InitInforPlayer(int level)
+    public void InitInforPlayer(int level)
     {
-        var temp = data_Infor.GetInforObjectByLevel(level);
+        var temp = data_Infor.GetInforPlayerByLevel(level);
+        var temp2 = levelUpConfig.GetExpPlayerByLevel(level);
         SetDataPlayer(temp);
+        SetEXPPlayer(temp2);
+    }
+    void SetCountEnemies(int cntE)
+    {
+        countEnemies = cntE;
     }
     public Vector3 GetSizeBg()
     {
@@ -76,11 +95,40 @@ public class PlayerController : Figure
 
         anim.SetFloat("Move", Mathf.Abs(direction.magnitude));
     }
+    void PlayerUpEXP(int e)
+    {
+        currentEXP += e;
+        if (currentEXP >= expNeed)
+        {
+            currentEXP = 0;
+            level++;
+            this.PostEvent(EventID.PlayerUpLevel,level);
+        }
+        this.PostEvent(EventID.PlayerUpEXP, currentEXP);
+    }
+    void PlayerUpScore(int e)
+    {
+        PlayerUpEXP(e);
+        countEnemiesIsKill++;
+        if (countEnemiesIsKill == countEnemies)
+        {
+            this.PostEvent(EventID.OutOffEnemy, countEnemiesIsKill);
+            countEnemiesIsKill = 0;
+        }
+
+        /*DataAccountPlayer.PlayerInfor.expPlayer++;
+        DataAccountPlayer.SaveDataPlayerInfor();*/
+        this.PostEvent(EventID.PlayerUpScore);
+    }
     private void SetDataPlayer(Data_object dO)
     {
         this.damage = dO.damage;
         this.hp = dO.hp;
         this.speed = dO.speed;
+    }
+    private void SetEXPPlayer(LevelPlayer levelPlayer)
+    {
+        expNeed = levelPlayer.expNeed;
     }
 
 }

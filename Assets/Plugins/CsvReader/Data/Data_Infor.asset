@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48964f8dfc931343af9c4058de12db4, type: 3}
+  m_Name: Data_Infor
+  m_EditorClassIdentifier: 
+  classInfomations:
+  - className: Data_Infor
+    csvInformations:
+    - className: Data_Infor
+      csvFile: {fileID: 4900000, guid: ab8f04fbba882c4429eee4baa376bd5f, type: 3}
+      csvPath: Assets/CSV/level_enemies_infor.csv
+      usingFolder: 0
+      csvFolderPath: 
+      separateScriptableObject: 0
+      fileStartWith: 
+      fieldSetValue: levelEnemy
+      isConvert: 1
+      convertMethod: ConvertDataLevelEnemy
+    - className: Data_Infor
+      csvFile: {fileID: 4900000, guid: 39f24739b1baf97479efeed9cc3df49c, type: 3}
+      csvPath: Assets/CSV/level_player_infor.csv
+      usingFolder: 0
+      csvFolderPath: 
+      separateScriptableObject: 0
+      fileStartWith: 
+      fieldSetValue: levelPlayer
+      isConvert: 1
+      convertMethod: ConvertDataLevelPlayer

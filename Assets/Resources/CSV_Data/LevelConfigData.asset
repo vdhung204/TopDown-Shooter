@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c6c9c3ffa611a40b195cc6cf0b10b1, type: 3}
+  m_Name: LevelConfigData
+  m_EditorClassIdentifier: 
+  levelConfigs:
+  - level: 1
+    waveEnemy:
+    - wave: 1
+      delay_time: 3
+      spawn_enemy: 7
+    - wave: 2
+      delay_time: 5
+      spawn_enemy: 12
+    - wave: 3
+      delay_time: 7
+      spawn_enemy: 15
+    - wave: 4
+      delay_time: 9
+      spawn_enemy: 18
+    - wave: 5
+      delay_time: 11
+      spawn_enemy: 20
+  - level: 2
+    waveEnemy:
+    - wave: 1
+      delay_time: 3
+      spawn_enemy: 7
+    - wave: 2
+      delay_time: 5
+      spawn_enemy: 10
+    - wave: 3
+      delay_time: 7
+      spawn_enemy: 15
+    - wave: 4
+      delay_time: 9
+      spawn_enemy: 18
+    - wave: 5
+      delay_time: 11
+      spawn_enemy: 23
+  - level: 3
+    waveEnemy:
+    - wave: 1
+      delay_time: 3
+      spawn_enemy: 10
+    - wave: 2
+      delay_time: 5
+      spawn_enemy: 13
+    - wave: 3
+      delay_time: 7
+      spawn_enemy: 17
+    - wave: 4
+      delay_time: 9
+      spawn_enemy: 21
+    - wave: 5
+      delay_time: 11
+      spawn_enemy: 25

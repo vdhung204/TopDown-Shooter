@@ -44,4 +44,5 @@ public enum EventID
     CountEnemy,
     OutOffEnemy,
     ExitGame,
+    PlayerUpEXP,
 }

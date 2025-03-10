@@ -119,6 +119,9 @@ MonoBehaviour:
   efTakeDamage: {fileID: 9182186356121363813}
   anim: {fileID: 1189758279427702649}
   spriteRenderer: {fileID: 0}
+  data_Infor: {fileID: 0}
+  levelUpConfig: {fileID: 0}
+  expNeed: 0
 --- !u!1 &2567462992410951844
 GameObject:
   m_ObjectHideFlags: 0

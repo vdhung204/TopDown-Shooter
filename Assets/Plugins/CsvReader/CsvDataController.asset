@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f90c27c51c90fd408fe1d9d539c91be, type: 3}
   m_Name: CsvDataController
   m_EditorClassIdentifier: 
-  data: []
-  csvDataName: 
+  data:
+  - {fileID: 11400000, guid: 68a76ddd9e0022c42b58052d8894be6b, type: 2}
+  - {fileID: 11400000, guid: 4b0d455e275ebba40b8d7a77d565b021, type: 2}
+  - {fileID: 11400000, guid: c2bf30935d616a34197772fe045b541e, type: 2}
+  - {fileID: 11400000, guid: fa7e5fcc06fd9534498f94c12bec25ca, type: 2}
+  csvDataName: levelUpConfig

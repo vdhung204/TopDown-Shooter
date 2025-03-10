@@ -13,24 +13,61 @@ public class EnemyController : Figure
     public Transform target;
     Coroutine moveCoroutine;
     public Data_Infor data_Infor;
+    public Enemies_Drop enemiesDrop;
+    private float timeSkip;
+    public int exp;
 
     private void Awake()
     {
-        data_Infor = Resources.Load<Data_Infor>("");
+        data_Infor = Resources.Load<Data_Infor>("CSV_Data/Data_Infor");
+        enemiesDrop = Resources.Load<Enemies_Drop>("CSV_Data/Enemies_Drop");
     }
     private void Start()
     {
         GetPlayerPosition();
         InvokeRepeating("CalculatePath", 0f, repeatTimeUpdatePath);
+        this.RegisterListener(EventID.WaveEnd, (sender,param) => DisableGameObject((int)param));
     }
+    private void Update()
+    {
+        timeSkip -= Time.deltaTime;
+        if (timeSkip > 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+    void DisableGameObject(int timeSk)
+    {
+       timeSkip = timeSk;
+    }
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        if (hp <= 0)
+        {
+            this.PostEvent(EventID.EnemyDie, exp);
+            ObjectDie();
 
+        }
+    }
+    public override void ObjectDie()
+    {
+        base.ObjectDie();
+       /* var x = Random.Range(0, 15);
+        ItemFactory.Instance.Create(x, this.transform.position);
+        SoundService.Instance.PlaySound(SoundType.sound_enemy_die);*/
+    }
     void InitInforEnemy(int level)
     {
-        var temp = data_Infor.GetInforObjectByLevel(level);
+        var temp = data_Infor.GetInforEnemiesByLevel(level);
+        var temp2 = enemiesDrop.GetExpEnemiesByLevel(level);
         SetInforEnemy(temp);
+        SetInforExp(temp2);
     }
     void GetPlayerPosition()
     {
+        if (PlayerController.instance.transform == null)
+            return;
         target = PlayerController.instance.transform;
     }
 
@@ -103,4 +140,10 @@ public class EnemyController : Figure
         damage = data_Object.damage;
         speed = data_Object.speed;
     }
+    void SetInforExp(Drop drop)
+    {
+        exp = drop.expDrop;
+    }
+    
+    
 }

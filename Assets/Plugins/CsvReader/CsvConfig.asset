@@ -17,7 +17,7 @@ MonoBehaviour:
   toolConfigPath: Assets/Plugins/CsvReader
   csvConfigPath: Assets/Plugins/CsvReader/Data
   csvPath: Assets/CSV
-  scriptableObjectPath: Assets/CSV Data
+  scriptableObjectPath: Assets/Resources/CSV_Data
   enabledFilter:
     enabled: 0
     namespaceList: []
