@@ -1,6 +1,7 @@
 using Core.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Text txtRound;
     public List<GameObject> enemies;
-    public List<Transform> enemiesPos;
+    public Dictionary<string, GameObject> dictEnemyAndTransform = new ();
     public GameObject player;
     private LevelConfigData waveSpawn;
     private int currentWave = 1;
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         waveSpawn = Resources.Load<LevelConfigData>("CSV_Data/LevelConfigData");
+
+        this.RegisterListener(EventID.RemoveEnemyTransform, (sender, param) => OnenemyDie((string)param));
     }
     private void Start()
     {
@@ -75,8 +78,6 @@ public class GameManager : MonoBehaviour
         {
             currentWave++;
             countEnemyWave = 0;
-            var timeDelay = waveSpawn.GetWaveInfor(levelConfig, currentWave).delay_time;
-            this.PostEvent(EventID.WaveEnd, timeDelay);
             if(currentWave > waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length)
             {
                 Time.timeScale = 0;
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             StartToSpawnEnemies();
             StartCoroutine(SpawnEnemies());
         }
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
     private void CheckToSpawnEnemies()
     {
         var waveEnemies = waveSpawn.GetLevelConfig(levelConfig);
-        if(currentWave == waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length)
+        if(currentWave == waveEnemies.waveEnemy.Length)
         {
             txtRound.text = $"FINAL";
         }else
@@ -112,11 +113,12 @@ public class GameManager : MonoBehaviour
         }
            
         countEnemy = waveSpawn.GetWaveInfor(levelConfig, currentWave).spawn_enemy;
+
         for (int i = 0; i < waveEnemies.waveEnemy.Length; i++)
         {
             if (currentWave == waveEnemies.waveEnemy[i].wave)
             {
-                this.PostEvent(EventID.CountEnemy, waveEnemies.waveEnemy[i].spawn_enemy);
+                this.PostEvent(EventID.CountEnemy,waveEnemies.waveEnemy[i].spawn_enemy);
                 StartCoroutine(SpawnWave(waveEnemies.waveEnemy[i].delay_time));
                 currentEnemy = 0;
                 return;
@@ -131,7 +133,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No enemies to spawn.");
             return;
         }
-        if(currentEnemy >= countEnemy)
+        if(currentEnemy >= 15)
         {
             return;
         }
@@ -143,6 +145,14 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), 0);
         var enemyClone = SmartPool.Instance.Spawn(enemyPrefab, spawnPos, Quaternion.identity);
         enemyClone.GetComponent<EnemyController>().InitInforEnemy(currentWave);
-        enemiesPos.Add(enemyClone.transform);
+        dictEnemyAndTransform.Add(enemyClone.gameObject.name, enemyClone);
     }
+
+    private void OnenemyDie(string enemyInstanceId)
+    {
+        if (dictEnemyAndTransform.ContainsKey(enemyInstanceId))
+        {
+            dictEnemyAndTransform.Remove(enemyInstanceId);
+        }
+    }    
 }

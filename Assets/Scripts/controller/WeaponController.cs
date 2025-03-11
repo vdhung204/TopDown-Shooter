@@ -1,6 +1,7 @@
 using Core.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -19,21 +20,32 @@ public class WeaponController : MonoBehaviour
     {
         
     }
-    private void Update()
+    private void FixedUpdate()
     {
         //Fire();
         AutoAimAndShoot();
     }
     public Transform GetNeareatEnemy()
     {
-        if(GameManager.instance.enemiesPos.Count == 0)
+        if(GameManager.instance.dictEnemyAndTransform.Count == 0)
         {
             return null;
         }
-        GameManager.instance.enemiesPos.Sort((x, y) 
-            => Vector3.Distance(transform.position, x.position)
-            .CompareTo(Vector3.Distance(transform.position, y.position)));
-        return GameManager.instance.enemiesPos[0];
+
+        var listEnemy = GameManager.instance.dictEnemyAndTransform.Values.ToList();
+
+        foreach (var item in listEnemy)
+        {
+            if(item == null)
+            {
+                listEnemy.Remove(item);
+            }
+        }
+
+        
+        listEnemy.Sort((x, y) => Vector3.Distance(transform.position, x.transform.position)
+            .CompareTo(Vector3.Distance(transform.position, y.transform.position)));
+        return listEnemy[0].transform;
     }
     void TurnTheGunTowardEnemies(Vector3 enemyPosition)
     {

@@ -20,14 +20,14 @@ public class PlayerController : Figure
         instance = this;
         data_Infor = Resources.Load<Data_Infor>("CSV_Data/Data_Infor");
         levelUpConfig = Resources.Load<levelUpConfig>("CSV_Data/levelUpConfig");
+
+        this.RegisterListener(EventID.CountEnemy, (sender, param) => SetCountEnemies((int)param));
+        this.RegisterListener(EventID.EnemyDie, (sender, param) => PlayerUpScore((int)param));
     }
     private void Start()
     {
         level = 1;
-        this.RegisterListener(EventID.CountEnemy, (sender, param) => SetCountEnemies((int)param));
-        Debug.Log("PlayerController Start");
-        this.RegisterListener(EventID.EnemyDie, (sender, param) => PlayerUpScore((int)param));
-        
+
     }
     void Update()
     {
@@ -52,9 +52,7 @@ public class PlayerController : Figure
     }
     public void SetCountEnemies(int cntE)
     {
-        Debug.Log("count " + cntE);
         countEnemies = cntE;
-        
     }
     public void MovePlayer()
     {

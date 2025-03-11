@@ -1,6 +1,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -14,7 +15,6 @@ public class EnemyController : Figure
     Coroutine moveCoroutine;
     public Data_Infor data_Infor;
     public Enemies_Drop enemiesDrop;
-    private float timeSkip;
     public int exp;
 
     private void Awake()
@@ -26,19 +26,6 @@ public class EnemyController : Figure
     {
         GetPlayerPosition();
         InvokeRepeating("CalculatePath", 0f, repeatTimeUpdatePath);
-        this.RegisterListener(EventID.WaveEnd, (sender,param) => DisableGameObject((int)param));
-    }
-    private void Update()
-    {
-        timeSkip -= Time.deltaTime;
-        if (timeSkip > 0)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-    void DisableGameObject(int timeSk)
-    {
-       timeSkip = timeSk;
     }
     public override void TakeDamage(float damage)
     {
@@ -46,10 +33,13 @@ public class EnemyController : Figure
         if (hp <= 0)
         {
             this.PostEvent(EventID.EnemyDie, exp);
-            ObjectDie();
+            this.PostEvent(EventID.RemoveEnemyTransform, gameObject.name);
 
+            Destroy(gameObject);
         }
     }
+
+    
     public override void ObjectDie()
     {
         base.ObjectDie();
@@ -103,7 +93,9 @@ public class EnemyController : Figure
         {
             StopCoroutine(moveCoroutine);
         }
-        moveCoroutine = StartCoroutine(MoveToTargetCoroutine());
+            moveCoroutine = StartCoroutine(MoveToTargetCoroutine());
+        
+        
     }
 
     IEnumerator MoveToTargetCoroutine()

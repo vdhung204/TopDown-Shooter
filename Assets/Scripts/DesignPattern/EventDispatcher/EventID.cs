@@ -13,6 +13,7 @@ public enum EventID
     SpendMoney,
     BlockSide,
     MovingAgain,
+    RemoveEnemyTransform,
 
     // Settings
     OnSoundChange,
