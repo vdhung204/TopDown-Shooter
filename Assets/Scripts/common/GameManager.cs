@@ -1,16 +1,18 @@
 using Core.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public Text txtRound;
     public List<GameObject> enemies;
     public List<Transform> enemiesPos;
     public GameObject player;
-    public SpriteRenderer spriteRenderer;
     private LevelConfigData waveSpawn;
     private int currentWave = 1;
     private int levelConfig = 1;
@@ -32,18 +34,21 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SpawnPlayer();
-       
+        currentWave = 1;
         this.RegisterListener(EventID.PlayerUpEXP, (sender, param) => ChangeEXPPlayer((int)param));
         this.RegisterListener(EventID.PlayerUpLevel, (sender, param) => PlayerUpLevel((int)param));
         this.RegisterListener(EventID.OutOffEnemy, (sender, param) => SetCountEnemyWave((int)param));
-    }
-    private void Update()
-    {
-        /*if(Input.GetKeyDown(KeyCode.Space))
-            StartToSpawnEnemies();*/
         CheckToSpawnEnemies();
 
-
+    }
+    private void SetTxtRound()
+    {
+        txtRound.gameObject.SetActive(true);
+        txtRound.text = $"ROUND {currentWave}";
+    }
+    private void OffTxtRound()
+    {
+        txtRound.gameObject.SetActive(false);
     }
     private void SetCountEnemyWave(int count)
     {
@@ -83,20 +88,29 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
             StartToSpawnEnemies();
             StartCoroutine(SpawnEnemies());
         }
     }
     private IEnumerator SpawnWave(float delayTime)
     {
+        Invoke("SetTxtRound", 0.1f);
+        Invoke("OffTxtRound", 2f);
         yield return new WaitForSeconds(delayTime);
         StartCoroutine(SpawnEnemies());
     }
     private void CheckToSpawnEnemies()
     {
         var waveEnemies = waveSpawn.GetLevelConfig(levelConfig);
-        //round.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
+        if(currentWave == waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length)
+        {
+            txtRound.text = $"FINAL";
+        }else
+        {
+            txtRound.text = $"ROUND {currentWave}";
+        }
+           
         countEnemy = waveSpawn.GetWaveInfor(levelConfig, currentWave).spawn_enemy;
         for (int i = 0; i < waveEnemies.waveEnemy.Length; i++)
         {
@@ -104,22 +118,11 @@ public class GameManager : MonoBehaviour
             {
                 this.PostEvent(EventID.CountEnemy, waveEnemies.waveEnemy[i].spawn_enemy);
                 StartCoroutine(SpawnWave(waveEnemies.waveEnemy[i].delay_time));
-
+                currentEnemy = 0;
                 return;
             }
 
         }
-    }
-    public Vector3 GetSizeBg()
-    {
-
-        if (spriteRenderer != null)
-        {
-            return spriteRenderer.bounds.size;
-        }
-        return Vector2.zero;
-
-
     }
     public void StartToSpawnEnemies()
     {
@@ -128,14 +131,18 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No enemies to spawn.");
             return;
         }
-
+        if(currentEnemy >= countEnemy)
+        {
+            return;
+        }
         int enemyIndex = Random.Range(0, enemies.Count);
         GameObject enemyPrefab = enemies[enemyIndex];
-        var bgSize = GetSizeBg();
+        var bgSize = BgController.instance.GetSizeBg();
         float xLimit = bgSize.x / 2 - 1f;
         float yLimit = bgSize.y / 2 - 1f;
         Vector3 spawnPos = new Vector3(Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), 0);
         var enemyClone = SmartPool.Instance.Spawn(enemyPrefab, spawnPos, Quaternion.identity);
+        enemyClone.GetComponent<EnemyController>().InitInforEnemy(currentWave);
         enemiesPos.Add(enemyClone.transform);
     }
 }

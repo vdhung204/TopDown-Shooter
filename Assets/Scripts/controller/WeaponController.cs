@@ -63,15 +63,14 @@ public class WeaponController : MonoBehaviour
         Transform nearEnemy = GetNeareatEnemy();
         if (nearEnemy == null) return;
         if (IsInRange(nearEnemy))
-
         {
-            
             TurnTheGunTowardEnemies(nearEnemy.position);
             if (Time.time >= nextFireTime)
             {
                 Fire();
                 nextFireTime = Time.time + 1f / fireRate; 
             }
+            
         }
     }
 }

@@ -57,7 +57,7 @@ public class EnemyController : Figure
         ItemFactory.Instance.Create(x, this.transform.position);
         SoundService.Instance.PlaySound(SoundType.sound_enemy_die);*/
     }
-    void InitInforEnemy(int level)
+    public void InitInforEnemy(int level)
     {
         var temp = data_Infor.GetInforEnemiesByLevel(level);
         var temp2 = enemiesDrop.GetExpEnemiesByLevel(level);

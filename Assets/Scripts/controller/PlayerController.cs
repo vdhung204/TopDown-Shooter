@@ -6,7 +6,6 @@ using static Cinemachine.DocumentationSortingAttribute;
 public class PlayerController : Figure
 {
     public Animator anim;
-    public SpriteRenderer spriteRenderer;
     public Data_Infor data_Infor;
     public levelUpConfig levelUpConfig;
     private int countEnemies;
@@ -24,9 +23,11 @@ public class PlayerController : Figure
     }
     private void Start()
     {
-        this.RegisterListener(EventID.CountEnemy, (sender, param) => SetCountEnemies((int)param));
-        this.RegisterListener(EventID.EnemyDie, (sender, param) => PlayerUpScore((int)param));
         level = 1;
+        this.RegisterListener(EventID.CountEnemy, (sender, param) => SetCountEnemies((int)param));
+        Debug.Log("PlayerController Start");
+        this.RegisterListener(EventID.EnemyDie, (sender, param) => PlayerUpScore((int)param));
+        
     }
     void Update()
     {
@@ -34,25 +35,26 @@ public class PlayerController : Figure
     }
     public void InitInforPlayer(int level)
     {
+        if(data_Infor == null)
+        {
+            data_Infor = Resources.Load<Data_Infor>("CSV_Data/Data_Infor");
+        }
+
+        if (levelUpConfig == null)
+        {
+            levelUpConfig = Resources.Load<levelUpConfig>("CSV_Data/levelUpConfig");
+        }
+
         var temp = data_Infor.GetInforPlayerByLevel(level);
         var temp2 = levelUpConfig.GetExpPlayerByLevel(level);
         SetDataPlayer(temp);
         SetEXPPlayer(temp2);
     }
-    void SetCountEnemies(int cntE)
+    public void SetCountEnemies(int cntE)
     {
+        Debug.Log("count " + cntE);
         countEnemies = cntE;
-    }
-    public Vector3 GetSizeBg()
-    {
-
-        if (spriteRenderer != null)
-        {
-             return spriteRenderer.bounds.size; 
-        }
-        return Vector2.zero;
-
-
+        
     }
     public void MovePlayer()
     {
@@ -83,7 +85,7 @@ public class PlayerController : Figure
         {
             nextPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
 
-            var bgSize = GetSizeBg();
+            var bgSize = BgController.instance.GetSizeBg();
             float xLimit = bgSize.x / 2 - 0.3f;
             float yLimit = bgSize.y / 2 - 0.4f;
 
