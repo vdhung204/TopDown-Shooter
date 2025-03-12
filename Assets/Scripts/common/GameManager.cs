@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -194,16 +195,7 @@ public class GameManager : MonoBehaviour
     public void RePlay()
     {
         Time.timeScale = 1;
-        currentWave = 1;
-        levelConfig = 1;
-        levelPlayer = 1;
-        expPlayer = 0;
-        countEnemy = 0;
-        countEnemyWave = 0;
-        currentEnemy = 0;
-        txtLevel.text = $"{levelPlayer}";
-        PlayerUpLevel(levelPlayer);
-        CheckToSpawnEnemies();
+        SceneManager.LoadScene(SceneName.GamePlay.ToString());
     }
     public void Exit()
     {
