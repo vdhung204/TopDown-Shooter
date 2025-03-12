@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies;
     public Dictionary<string, GameObject> dictEnemyAndTransform = new ();
     public GameObject player;
+    
     private LevelConfigData waveSpawn;
     private int currentWave = 1;
     private int levelConfig = 1;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         this.RegisterListener(EventID.PlayerUpEXP, (sender, param) => ChangeEXPPlayer((int)param));
         this.RegisterListener(EventID.PlayerUpLevel, (sender, param) => PlayerUpLevel((int)param));
         this.RegisterListener(EventID.OutOffEnemy, (sender, param) => SetCountEnemyWave((int)param));
+        this.RegisterListener(EventID.PlayerDie, (sender, param) => OnPlayerDie());
         CheckToSpawnEnemies();
 
     }
@@ -154,5 +156,9 @@ public class GameManager : MonoBehaviour
         {
             dictEnemyAndTransform.Remove(enemyInstanceId);
         }
-    }    
+    } 
+    private void OnPlayerDie()
+    {
+        Time.timeScale = 0;
+    }
 }

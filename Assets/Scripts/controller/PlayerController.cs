@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
+using UnityEngine.UI;
 
 public class PlayerController : Figure
 {
@@ -13,6 +13,10 @@ public class PlayerController : Figure
     private int currentEXP = 0;
     public int expNeed;
     private int level;
+    public Image imgFillHpBar;
+    public Image imgFillExpBar;
+    private float MAXHP;
+    private int MAXEXP;
     public static PlayerController instance { private set; get; }
 
     private void Awake()
@@ -27,6 +31,12 @@ public class PlayerController : Figure
     private void Start()
     {
         level = 1;
+        currentEXP = 0;
+        MAXEXP = expNeed;
+        MAXHP = hp; 
+        imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
+        imgFillHpBar.fillAmount = (float)hp / MAXHP;
+
 
     }
     void Update()
@@ -95,6 +105,16 @@ public class PlayerController : Figure
 
         anim.SetFloat("Move", Mathf.Abs(direction.magnitude));
     }
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        imgFillHpBar.fillAmount = (float)hp / MAXHP;
+        if (hp <= 0)
+        {
+            this.PostEvent(EventID.PlayerDie);
+        }
+
+    }
     void PlayerUpEXP(int e)
     {
         currentEXP += e;
@@ -104,6 +124,7 @@ public class PlayerController : Figure
             level++;
             this.PostEvent(EventID.PlayerUpLevel,level);
         }
+        imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
         this.PostEvent(EventID.PlayerUpEXP, currentEXP);
     }
     void PlayerUpScore(int e)
@@ -125,6 +146,8 @@ public class PlayerController : Figure
         this.damage = dO.damage;
         this.hp = dO.hp;
         this.speed = dO.speed;
+        MAXHP = dO.hp;
+       
     }
     private void SetEXPPlayer(LevelPlayer levelPlayer)
     {

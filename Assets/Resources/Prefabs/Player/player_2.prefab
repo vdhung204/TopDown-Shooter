@@ -149,10 +149,11 @@ MonoBehaviour:
   popUpText: {fileID: 1838252043742942219, guid: 6051031ef72f7d744873fd0bac24a917, type: 3}
   efTakeDamage: {fileID: 2152195462035051491}
   anim: {fileID: 2650514896196988976}
-  spriteRenderer: {fileID: 0}
   data_Infor: {fileID: 0}
   levelUpConfig: {fileID: 0}
   expNeed: 0
+  imgFillHpBar: {fileID: 0}
+  imgFillExpBar: {fileID: 0}
 --- !u!1 &3877250652228314085
 GameObject:
   m_ObjectHideFlags: 0
