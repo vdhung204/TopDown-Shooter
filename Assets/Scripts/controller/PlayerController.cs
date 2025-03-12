@@ -118,9 +118,11 @@ public class PlayerController : Figure
     void PlayerUpEXP(int e)
     {
         currentEXP += e;
+        
         if (currentEXP >= expNeed)
         {
             currentEXP = 0;
+            imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
             level++;
             this.PostEvent(EventID.PlayerUpLevel,level);
         }

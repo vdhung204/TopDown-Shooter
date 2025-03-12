@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Text txtRound;
+    public Text txtScore;
+    public Text txtWave;
     public List<GameObject> enemies;
     public Dictionary<string, GameObject> dictEnemyAndTransform = new ();
     public GameObject player;
-    
+    public Text txtLevel;
     private LevelConfigData waveSpawn;
     private int currentWave = 1;
     private int levelConfig = 1;
@@ -24,6 +26,14 @@ public class GameManager : MonoBehaviour
     private int countEnemy ;
     private int countEnemyWave =0 ;
     private int currentEnemy = 0;
+    private int score = 0;
+    public GameObject panelEndGame; 
+    public GameObject popupPause; 
+    private bool isWin;
+    public Sprite iconPause;
+    public Sprite iconReSume;
+    public Image imgPause;
+    public Button btnPause;
 
     private void Awake()
     {
@@ -37,13 +47,23 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        isWin = false;
+        panelEndGame.SetActive(false);
+        popupPause.SetActive(false);
         SpawnPlayer();
         currentWave = 1;
+        btnPause.onClick.AddListener(PauseGame);
         this.RegisterListener(EventID.PlayerUpEXP, (sender, param) => ChangeEXPPlayer((int)param));
         this.RegisterListener(EventID.PlayerUpLevel, (sender, param) => PlayerUpLevel((int)param));
+        this.RegisterListener(EventID.PlayerUpScore, (sender, param) => PlayerUpScore());
+
         this.RegisterListener(EventID.OutOffEnemy, (sender, param) => SetCountEnemyWave((int)param));
-        this.RegisterListener(EventID.PlayerDie, (sender, param) => OnPlayerDie());
+        this.RegisterListener(EventID.PlayerDie, (sender, param) => EndGame());
         CheckToSpawnEnemies();
+        txtLevel.text = $"{levelPlayer}";
+        txtScore.text = $"{score}";
+        txtWave.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
+
 
     }
     private void SetTxtRound()
@@ -63,6 +83,11 @@ public class GameManager : MonoBehaviour
     {
         expPlayer += exp;
     }
+    void PlayerUpScore()
+    {
+        score++;
+        txtScore.text = $"{score}";
+    }
     void SpawnPlayer()
     {
         var players = SmartPool.Instance.Spawn(player, Vector3.zero, Quaternion.identity);
@@ -72,6 +97,7 @@ public class GameManager : MonoBehaviour
     public void PlayerUpLevel(int level)
     {
         PlayerController.instance.InitInforPlayer(level);
+        txtLevel.text = $"{level}";
         EXPNEED = PlayerController.instance.expNeed;
     }
     IEnumerator SpawnEnemies()
@@ -79,10 +105,12 @@ public class GameManager : MonoBehaviour
         if(countEnemyWave == countEnemy)
         {
             currentWave++;
+            txtWave.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
             countEnemyWave = 0;
             if(currentWave > waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length)
             {
-                Time.timeScale = 0;
+                isWin = true;
+                EndGame();
             }
             else
             {
@@ -157,8 +185,41 @@ public class GameManager : MonoBehaviour
             dictEnemyAndTransform.Remove(enemyInstanceId);
         }
     } 
-    private void OnPlayerDie()
+    private void EndGame()
     {
         Time.timeScale = 0;
+        panelEndGame.SetActive(true);
+        EndGameControlelr.instance.ShowEndGame(isWin, score, expPlayer);
+    }
+    public void RePlay()
+    {
+        Time.timeScale = 1;
+        currentWave = 1;
+        levelConfig = 1;
+        levelPlayer = 1;
+        expPlayer = 0;
+        countEnemy = 0;
+        countEnemyWave = 0;
+        currentEnemy = 0;
+        txtLevel.text = $"{levelPlayer}";
+        PlayerUpLevel(levelPlayer);
+        CheckToSpawnEnemies();
+    }
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        popupPause.SetActive(true);
+        imgPause.sprite = iconPause;
+
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        popupPause.SetActive(false);
+        imgPause.sprite = iconReSume;
     }
 }
