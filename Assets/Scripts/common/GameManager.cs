@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         if(countEnemyWave == countEnemy)
         {
             currentWave++;
-            txtWave.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
+            
             countEnemyWave = 0;
             if(currentWave > waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length)
             {
@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                txtWave.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
                 CheckToSpawnEnemies();
             }
         }
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No enemies to spawn.");
             return;
         }
-        if(currentEnemy >= 15)
+        if(currentEnemy >= countEnemy)
         {
             return;
         }
@@ -195,8 +196,8 @@ public class GameManager : MonoBehaviour
     }
     public void RePlay()
     {
+        SceneManager.LoadScene(SceneName.GamePlayScene.ToString());
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneName.GamePlay.ToString());
     }
     public void Exit()
     {

@@ -10,6 +10,6 @@ public class MainMenuController : MonoBehaviour
 public enum SceneName
 {
     MainMenu,
-    GamePlay,
+    GamePlayScene,
     Loading,
 }
