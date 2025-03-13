@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
         float yLimit = bgSize.y / 2 - 1f;
         Vector3 spawnPos = new Vector3(Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), 0);
         var enemyClone = SmartPool.Instance.Spawn(enemyPrefab, spawnPos, Quaternion.identity);
+        currentEnemy++;
         enemyClone.GetComponent<EnemyController>().InitInforEnemy(currentWave);
         dictEnemyAndTransform.Add(enemyClone.gameObject.name, enemyClone);
     }

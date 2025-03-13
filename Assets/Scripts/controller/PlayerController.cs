@@ -13,8 +13,6 @@ public class PlayerController : Figure
     private int currentEXP = 0;
     public int expNeed;
     private int level;
-    public Image imgFillHpBar;
-    public Image imgFillExpBar;
     private float MAXHP;
     private int MAXEXP;
     public static PlayerController instance { private set; get; }
@@ -34,8 +32,8 @@ public class PlayerController : Figure
         currentEXP = 0;
         MAXEXP = expNeed;
         MAXHP = hp; 
-        imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
-        imgFillHpBar.fillAmount = (float)hp / MAXHP;
+        UIController.instance.FillHpPlayer(hp, MAXHP);
+        UIController.instance.FillExpPlayer(currentEXP, MAXEXP);
 
 
     }
@@ -108,7 +106,7 @@ public class PlayerController : Figure
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        imgFillHpBar.fillAmount = (float)hp / MAXHP;
+        UIController.instance.FillHpPlayer(hp, MAXHP);
         if (hp <= 0)
         {
             this.PostEvent(EventID.PlayerDie);
@@ -121,12 +119,12 @@ public class PlayerController : Figure
         
         if (currentEXP >= expNeed)
         {
-            currentEXP = 0;
-            imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
+            currentEXP = 0; 
+            UIController.instance.FillExpPlayer(currentEXP, MAXEXP);
             level++;
             this.PostEvent(EventID.PlayerUpLevel,level);
         }
-        imgFillExpBar.fillAmount = (float)currentEXP / MAXEXP;
+        UIController.instance.FillExpPlayer(currentEXP, MAXEXP);
         this.PostEvent(EventID.PlayerUpEXP, currentEXP);
     }
     void PlayerUpScore(int e)
