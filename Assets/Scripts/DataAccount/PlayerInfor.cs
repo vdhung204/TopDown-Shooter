@@ -12,7 +12,7 @@ public class PlayerInfor : MonoBehaviour
     // public HashSet<int> levelPlayerIsActived = new HashSet<int>() { 1 };
 
 
-    public void ChangeCharacterId(int id)
+    /*public void ChangeCharacterId(int id)
     {
         character = id;
         DataAccountPlayer.SaveDataPlayerInfor();
@@ -31,5 +31,5 @@ public class PlayerInfor : MonoBehaviour
     {
         //levelPlayerIsActived.Add(level);
         DataAccountPlayer.SaveDataPlayerInfor();
-    }
+    }*/
 }

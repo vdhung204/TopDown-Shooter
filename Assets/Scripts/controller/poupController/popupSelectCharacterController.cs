@@ -79,7 +79,7 @@ public class popupSelectCharacterController : MonoBehaviour
     } void OnClickBtnSelect()
     {
         index = System.Array.IndexOf(spCharacter, imgCharacter.sprite);
-        DataAccountPlayer.PlayerInfor.ChangeCharacterId(index);
+        //DataAccountPlayer.PlayerInfor.ChangeCharacterId(index);
         Debug.Log("index: " + index);
         this.PostEvent(EventID.SelectCharacter, index);
     }
