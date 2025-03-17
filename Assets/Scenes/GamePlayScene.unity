@@ -2698,7 +2698,11 @@ MonoBehaviour:
   - {fileID: 1231373538858848190, guid: b437b30bd061fab49ba0c234165f88bc, type: 3}
   - {fileID: 902452859616736762, guid: adf535eb9a9753d4589e418010dfac05, type: 3}
   - {fileID: 6595805718281360349, guid: e25c4d86b8abafc46b541f1b59c5d6b8, type: 3}
-  player: {fileID: 1468244557110253983, guid: bf731e3ffdb18ec479e8db42bb23684b, type: 3}
+  player:
+  - {fileID: 1468244557110253983, guid: bf731e3ffdb18ec479e8db42bb23684b, type: 3}
+  - {fileID: 3538324024422167004, guid: 242308b8d762b7b4a8da0274aad6f203, type: 3}
+  - {fileID: 4892613859709255094, guid: 03f6dbaf176c85c44a4943df228ac678, type: 3}
+  - {fileID: 509614810479767118, guid: 8b40af377c1f9a349b0bf9eb35ba676d, type: 3}
   txtLevel: {fileID: 1786548257}
   panelEndGame: {fileID: 7489664154060900622}
   popupPause: {fileID: 1726604567}
