@@ -15,21 +15,21 @@ public class PlayerInfor : MonoBehaviour
     public void ChangeCharacterId(int id)
     {
         character = id;
-        DataAccountPlayer.SaveDataPlayerInfor();
+        //DataAccountPlayer.SaveDataPlayerInfor();
     }
     public void ChangeLevelConfigPlayer(int level)
     {
         //selectLevel = level;
-        DataAccountPlayer.SaveDataPlayerInfor();
+        //DataAccountPlayer.SaveDataPlayerInfor();
     }
     public void BoughtCharacter(int id)
     {
         listCharacter.Add(id);
-        DataAccountPlayer.SaveDataPlayerInfor();
+        //DataAccountPlayer.SaveDataPlayerInfor();
     }
     public void ChangeLevelPlayer(int level)
     {
         //levelPlayerIsActived.Add(level);
-        DataAccountPlayer.SaveDataPlayerInfor();
+        //DataAccountPlayer.SaveDataPlayerInfor();
     }
 }
