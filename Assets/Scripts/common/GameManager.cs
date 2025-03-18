@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         panelEndGame.SetActive(true);
-        EndGameControlelr.instance.ShowEndGame(isWin, score, expPlayer);
+        EndGameControlelr.instance.ShowEndGame(isWin, score, PlayerController.instance.gold);
     }
     public void RePlay()
     {

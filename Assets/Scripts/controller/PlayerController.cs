@@ -16,6 +16,7 @@ public class PlayerController : Figure
     private float MAXHP;
     private int MAXEXP;
     public static PlayerController instance;
+    public int gold;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class PlayerController : Figure
     }
     private void Start()
     {
+        gold = 0;
         level = 1;
         currentEXP = 0;
         MAXEXP = expNeed;
@@ -130,6 +132,8 @@ public class PlayerController : Figure
     void PlayerUpScore(int e)
     {
         PlayerUpEXP(e);
+        var  x = Random.Range(1, 10);
+        gold += x;
         countEnemiesIsKill++;
         if (countEnemiesIsKill == countEnemies)
         {
@@ -137,8 +141,8 @@ public class PlayerController : Figure
             countEnemiesIsKill = 0;
         }
 
-        /*DataAccountPlayer.PlayerInfor.expPlayer++;
-        DataAccountPlayer.SaveDataPlayerInfor();*/
+        DataAccountPlayer.PlayerInfor.coinPlayer+= gold;
+        DataAccountPlayer.SaveDataPlayerInfor();
         this.PostEvent(EventID.PlayerUpScore);
     }
     private void SetDataPlayer(Data_object dO)

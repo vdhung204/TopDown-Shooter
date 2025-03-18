@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerInfor
 {
-    public int coinPlayer;
+    public double coinPlayer = 0;
+    public double gem = 0;
 
     public int character = 0;
     //public int selectLevel = 1;
@@ -15,11 +16,6 @@ public class PlayerInfor
     public void ChangeCharacterId(int id)
     {
         character = id;
-        DataAccountPlayer.SaveDataPlayerInfor();
-    }
-    public void ChangeLevelConfigPlayer(int level)
-    {
-        //selectLevel = level;
         DataAccountPlayer.SaveDataPlayerInfor();
     }
     public void BoughtCharacter(int id)

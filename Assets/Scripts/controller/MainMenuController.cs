@@ -21,6 +21,11 @@ public class MainMenuController : MonoBehaviour
         btnShop.onClick.AddListener(OnShopClick);
         btnBattle.onClick.AddListener(OnBattleClick);
     }
+    private void Start()
+    {
+        txtGem.text = DataAccountPlayer.PlayerInfor.gem.ToString();
+        txtCoin.text = DataAccountPlayer.PlayerInfor.coinPlayer.ToString();
+    }
     void OnSettingClick()
     {
         popupSetting.SetActive(true);
