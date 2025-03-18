@@ -435,7 +435,6 @@ GameObject:
   m_Component:
   - component: {fileID: 203679463}
   - component: {fileID: 203679464}
-  - component: {fileID: 203679465}
   m_Layer: 0
   m_Name: MainMenu Manager
   m_TagString: Untagged
@@ -478,27 +477,6 @@ MonoBehaviour:
   popupSetting: {fileID: 1244754921}
   popupShop: {fileID: 1029274829}
   popupChangeCharater: {fileID: 1029274829}
---- !u!114 &203679465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203679462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d0a809249bf47d9b47c36bcc4dda483, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!1 &274956293
 GameObject:
   m_ObjectHideFlags: 0

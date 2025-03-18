@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfor : MonoBehaviour
+public class PlayerInfor
 {
     public int coinPlayer;
 
-    public int character = 1;
+    public int character = 0;
     //public int selectLevel = 1;
     public List<int> listCharacter = new List<int>() { 0 };
     // public HashSet<int> levelPlayerIsActived = new HashSet<int>() { 1 };
 
 
-    /*public void ChangeCharacterId(int id)
+    public void ChangeCharacterId(int id)
     {
         character = id;
         DataAccountPlayer.SaveDataPlayerInfor();
@@ -31,5 +31,5 @@ public class PlayerInfor : MonoBehaviour
     {
         //levelPlayerIsActived.Add(level);
         DataAccountPlayer.SaveDataPlayerInfor();
-    }*/
+    }
 }

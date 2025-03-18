@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -35,7 +36,6 @@ public class GameManager : MonoBehaviour
     public Sprite iconReSume;
     public Image imgPause;
     public Button btnPause;
-    private int index = 0;
 
     private void Awake()
     {
@@ -50,8 +50,6 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        this.RegisterListener(EventID.SelectCharacter, (sender, param) => SetIndex((int)param));
-        Debug.Log(index);
         isWin = false;
         panelEndGame.SetActive(false);
         popupPause.SetActive(false);
@@ -70,10 +68,6 @@ public class GameManager : MonoBehaviour
         txtWave.text = $"{currentWave}/{waveSpawn.GetLevelConfig(levelConfig).waveEnemy.Length}";
 
 
-    }
-    private void SetIndex(int id)
-    {
-        index = id;
     }
     private void SetTxtRound()
     {
@@ -99,9 +93,14 @@ public class GameManager : MonoBehaviour
     }
     void SpawnPlayer()
     {
-        var players = SmartPool.Instance.Spawn(player[index], Vector3.zero, Quaternion.identity);
-        player[index].GetComponent<PlayerController>().InitInforPlayer(levelPlayer);
+        var players = SmartPool.Instance.Spawn(player[DataAccountPlayer.PlayerInfor.character], Vector3.zero, Quaternion.identity);
+
+        players.GetComponent<PlayerController>().InitInforPlayer(levelPlayer);
         EXPNEED = PlayerController.instance.expNeed;
+        if (players.TryGetComponent(out Renderer renderer))
+        {
+            renderer.bounds.Encapsulate(players.transform.position);
+        }
     }
     public void PlayerUpLevel(int level)
     {
@@ -209,7 +208,8 @@ public class GameManager : MonoBehaviour
     }
     public void Exit()
     {
-        Application.Quit();
+        SceneManager.LoadScene(SceneName.MainMenu.ToString());
+        Time.timeScale = 1;
     }
     public void PauseGame()
     {

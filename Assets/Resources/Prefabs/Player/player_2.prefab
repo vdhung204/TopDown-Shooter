@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 5990999090772271410}
   - component: {fileID: 856325106811871380}
   - component: {fileID: 4215174908485409715}
-  - component: {fileID: 1669478889707568581}
+  - component: {fileID: -7133591484864284968}
   m_Layer: 0
   m_Name: player_2
   m_TagString: Player
@@ -130,7 +130,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1669478889707568581
+--- !u!114 &-7133591484864284968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef4d039574dd48408bec08680117225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 0
   hp: 0
-  damage: 10
+  damage: 0
   popUpTextPrefab: {fileID: 3735327453787569117, guid: 6051031ef72f7d744873fd0bac24a917, type: 3}
   popUpText: {fileID: 1838252043742942219, guid: 6051031ef72f7d744873fd0bac24a917, type: 3}
   efTakeDamage: {fileID: 2152195462035051491}
@@ -152,8 +152,6 @@ MonoBehaviour:
   data_Infor: {fileID: 0}
   levelUpConfig: {fileID: 0}
   expNeed: 0
-  imgFillHpBar: {fileID: 0}
-  imgFillExpBar: {fileID: 0}
 --- !u!1 &3877250652228314085
 GameObject:
   m_ObjectHideFlags: 0

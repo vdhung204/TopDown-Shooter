@@ -1,4 +1,4 @@
-/*using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class DataAccountPlayer
 
             if (!string.IsNullOrEmpty(local))
             {
-               _playerInfor = JsonConvert.DeserializeObject<PlayerInfor>(local);
+                _playerInfor = JsonConvert.DeserializeObject<PlayerInfor>(local);
             }
             else
             {
@@ -60,4 +60,4 @@ public class DataAccountPlayer
     {
         PlayerPrefs.SetString(DataAccountPlayerConstans.PLAYER_SETTING, JsonConvert.SerializeObject(_playerSetting));
     }
-}*/
+}

@@ -28,6 +28,7 @@ public class popupSelectCharacterController : MonoBehaviour
     }
     private void Start()
     {
+        index = DataAccountPlayer.PlayerInfor.character;
         imgCharacter.sprite = spCharacter[index];
         if (index <= 0)
         {
@@ -48,7 +49,6 @@ public class popupSelectCharacterController : MonoBehaviour
     }
     void OnClickBtnBack()
     {
-        //index = System.Array.IndexOf(spCharacter, imgCharacter.sprite);
         index--;
         index = Mathf.Clamp(index, 0, spCharacter.Length - 1);
         if (index <= 0)
@@ -64,7 +64,6 @@ public class popupSelectCharacterController : MonoBehaviour
     }
     void OnClickBtnNext()
     {
-        //index = System.Array.IndexOf(spCharacter, imgCharacter.sprite);
         index++;
         index = Mathf.Clamp(index, 0, spCharacter.Length - 1);
         if (index >= spCharacter.Length - 1)
@@ -76,11 +75,10 @@ public class popupSelectCharacterController : MonoBehaviour
             btnBack.interactable = true;
         }
         imgCharacter.sprite = spCharacter[index];
-    } void OnClickBtnSelect()
+    } 
+    void OnClickBtnSelect()
     {
-        index = System.Array.IndexOf(spCharacter, imgCharacter.sprite);
-        //DataAccountPlayer.PlayerInfor.ChangeCharacterId(index);
-        Debug.Log("index: " + index);
-        this.PostEvent(EventID.SelectCharacter, index);
+        DataAccountPlayer.PlayerInfor.ChangeCharacterId(index);
+        Debug.Log("Character: " + DataAccountPlayer.PlayerInfor.character);
     }
  }

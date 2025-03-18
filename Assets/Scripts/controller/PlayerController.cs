@@ -15,7 +15,7 @@ public class PlayerController : Figure
     private int level;
     private float MAXHP;
     private int MAXEXP;
-    public static PlayerController instance { private set; get; }
+    public static PlayerController instance;
 
     private void Awake()
     {
