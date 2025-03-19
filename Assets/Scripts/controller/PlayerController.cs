@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : Figure
+public class PlayerController : Character
 {
     public Animator anim;
     public Data_Infor data_Infor;
@@ -14,9 +14,11 @@ public class PlayerController : Figure
     public int expNeed;
     private int level;
     private float MAXHP;
+    private float MAXSpeed = 12;
     private int MAXEXP;
     public static PlayerController instance;
     public int gold;
+    public GameObject shieldEffect;
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class PlayerController : Figure
         currentEXP = 0;
         MAXEXP = expNeed;
         MAXHP = hp; 
+        
         UIController.instance.FillHpPlayer(hp, MAXHP);
         UIController.instance.FillExpPlayer(currentEXP, MAXEXP);
 
@@ -41,7 +44,8 @@ public class PlayerController : Figure
     }
     void Update()
     {
-        MovePlayer();
+        MovePlayer(this.speed);
+        ItemFactory.CheckItem(this.transform);
     }
     public void InitInforPlayer(int level)
     {
@@ -64,10 +68,9 @@ public class PlayerController : Figure
     {
         countEnemies = cntE;
     }
-    public void MovePlayer()
+    public void MovePlayer(float speed)
     {
         var direction = Vector3.zero;
-        float moveSpeed = 5f; 
         Vector3 nextPosition = transform.position;
 
         if (Input.GetKey(KeyCode.W))
@@ -91,7 +94,7 @@ public class PlayerController : Figure
 
         if (direction != Vector3.zero)
         {
-            nextPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
+            nextPosition = transform.position + direction.normalized * speed * Time.deltaTime;
 
             var bgSize = BgController.instance.GetSizeBg();
             float xLimit = bgSize.x / 2 - 0.3f;
@@ -132,8 +135,6 @@ public class PlayerController : Figure
     void PlayerUpScore(int e)
     {
         PlayerUpEXP(e);
-        var  x = Random.Range(1, 10);
-        gold += x;
         countEnemiesIsKill++;
         if (countEnemiesIsKill == countEnemies)
         {
@@ -141,10 +142,77 @@ public class PlayerController : Figure
             countEnemiesIsKill = 0;
         }
 
-        DataAccountPlayer.PlayerInfor.coinPlayer+= gold;
-        DataAccountPlayer.SaveDataPlayerInfor();
+        
         this.PostEvent(EventID.PlayerUpScore);
     }
+    public void TakeCoin()
+    {
+        gold+= 5;
+    }
+    public void UpHp()
+    {
+        hp += 20;
+        if (hp > MAXHP)
+        {
+            hp = MAXHP;
+        }
+        UIController.instance.FillHpPlayer(hp, MAXHP);
+
+    }
+    public void SpeedUp()
+    {
+        var oldSpeed = speed;
+        speed = MAXSpeed;
+        StartCoroutine(BackToOldSpeed(oldSpeed));
+    }
+    public void Shield()
+    {
+
+        var rig = this.gameObject.GetComponent<Rigidbody2D>();
+        if (rig == null)
+        {
+            return;
+        }
+
+        if (shieldEffect == null)
+        {
+            return;
+        }
+
+        shieldEffect.SetActive(true);
+        rig.GetComponent<Collider2D>().enabled = false; 
+
+        StartCoroutine(TurnOffShieldEffect());
+        StartCoroutine(BackToTakeDamage());
+    }
+
+    IEnumerator BackToTakeDamage()
+    {
+        yield return new WaitForSeconds(5);
+
+        var rig = this.gameObject.GetComponent<Rigidbody2D>();
+        if (rig != null)
+        {
+            rig.GetComponent<Collider2D>().enabled = true; 
+        }
+    }
+
+    IEnumerator TurnOffShieldEffect()
+    {
+        yield return new WaitForSeconds(5);
+
+        if (shieldEffect != null)
+        {
+            shieldEffect.SetActive(false);
+        }
+    }
+
+    IEnumerator BackToOldSpeed(float oldSpeed)
+    {
+        yield return new WaitForSeconds(5);
+        speed = oldSpeed;
+    }
+    
     private void SetDataPlayer(Data_object dO)
     {
         this.damage = dO.damage;

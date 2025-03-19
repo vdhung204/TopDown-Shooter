@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Figure : MoveBase
+public class Character : MoveBase
 {
     public float hp;
     public float damage;

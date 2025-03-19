@@ -36,7 +36,6 @@ public enum EventID
     WasHitBulelt ,
     EnemyWasHitBullet,
     GameOver,
-    AddHP,
     SkipBg,
     WaveEnd,
     UpdateCoins,

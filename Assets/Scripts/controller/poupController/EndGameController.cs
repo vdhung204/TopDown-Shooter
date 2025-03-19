@@ -30,6 +30,7 @@ public class EndGameControlelr : MonoBehaviour
     public void ShowEndGame(bool isWin, int score, int gold)
     {
         txtEndGame.text = isWin ? "VICTORY" : "Lose";
+        txtEndGame.color = isWin ? Color.yellow : Color.grey;
         txtScore.text = $"{score}";
         txtGold.text = $"{gold}";
     }

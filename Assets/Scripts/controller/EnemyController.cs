@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class EnemyController : Figure
+public class EnemyController : Character
 {
     public Seeker seeker;
     public Animator anim;
@@ -34,7 +34,8 @@ public class EnemyController : Figure
         {
             this.PostEvent(EventID.EnemyDie, exp);
             this.PostEvent(EventID.RemoveEnemyTransform, gameObject.name);
-
+            var x = Random.Range(0, 15);
+            ItemFactory.Instance.Create(x, this.transform.position);
             Destroy(gameObject);
         }
     }

@@ -32,9 +32,6 @@ public class GameManager : MonoBehaviour
     public GameObject panelEndGame; 
     public GameObject popupPause; 
     private bool isWin;
-    public Sprite iconPause;
-    public Sprite iconReSume;
-    public Image imgPause;
     public Button btnPause;
 
     private void Awake()
@@ -59,7 +56,7 @@ public class GameManager : MonoBehaviour
         this.RegisterListener(EventID.PlayerUpEXP, (sender, param) => ChangeEXPPlayer((int)param));
         this.RegisterListener(EventID.PlayerUpLevel, (sender, param) => PlayerUpLevel((int)param));
         this.RegisterListener(EventID.PlayerUpScore, (sender, param) => PlayerUpScore());
-
+        
         this.RegisterListener(EventID.OutOffEnemy, (sender, param) => SetCountEnemyWave((int)param));
         this.RegisterListener(EventID.PlayerDie, (sender, param) => EndGame());
         CheckToSpawnEnemies();
@@ -200,6 +197,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         panelEndGame.SetActive(true);
         EndGameControlelr.instance.ShowEndGame(isWin, score, PlayerController.instance.gold);
+        DataAccountPlayer.PlayerInfor.coinPlayer += PlayerController.instance.gold;
+        DataAccountPlayer.SaveDataPlayerInfor();
     }
     public void RePlay()
     {
@@ -215,13 +214,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         popupPause.SetActive(true);
-        imgPause.sprite = iconPause;
 
     }
     public void ResumeGame()
     {
         Time.timeScale = 1;
         popupPause.SetActive(false);
-        imgPause.sprite = iconReSume;
     }
 }
