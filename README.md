@@ -20,8 +20,8 @@ Cài đặt Unity version 2022.3.0.16f1
  - Unity engine
  - C#
  <h1>Người phát triển</h1>
- <h2>Nguyễn Hoàng Đạt</h2>
+ <h3>Nguyễn Hoàng Đạt</h3>
  
- <h2>Vương Đức Hùng</h2>
+ <h3>Vương Đức Hùng</h3>
  
- <h2>Nguyễn Duy Biền</h2>
+ <h3>Nguyễn Duy Biền</h3>
