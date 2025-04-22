@@ -21,6 +21,9 @@ Cài đặt Unity version 2022.3.0.16f1
 <h1>Công nghệ sử dụng</h1>
  - Unity engine
  - C#
+ <h1>Tính năng dự kiến</h1>
+ - Cập nhập tính năng shop
+ - Cập nhập các năng cấp trong trận
  <h1>Người phát triển</h1>
  <h3>Nguyễn Hoàng Đạt</h3>
  
