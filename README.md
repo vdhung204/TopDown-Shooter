@@ -13,7 +13,7 @@
 <h2>Bước 1: Clone dự án</h2>
 <code>git clone https://github.com/vdhung204/TopDown-Shooter.git</code>
 <h2>Bước 2: Cài đặt các phụ thuộc</h2>
-Cài đặt Unity version 2022.3.0.16f1
+ Cài đặt Unity version 2022.3.0.16f1
 <h2>Bước 3 : Chạy dự án</h2>
  - Mở Unity</br>
  - Add project vừa tải</br>
@@ -22,11 +22,9 @@ Cài đặt Unity version 2022.3.0.16f1
  - Unity engine
  - C#
  <h1>Tính năng dự kiến</h1>
- - Cập nhập tính năng shop
+ - Cập nhập tính năng shop <br>
  - Cập nhập các năng cấp trong trận
  <h1>Người phát triển</h1>
  <h3>Nguyễn Hoàng Đạt</h3>
- 
  <h3>Vương Đức Hùng</h3>
- 
  <h3>Nguyễn Duy Biền</h3>
